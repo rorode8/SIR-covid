@@ -18,7 +18,7 @@ Desarrollar diferentes modelos matematicos por medio de ODEs que nos permitan en
 # Requisitos
 
 
-Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved). El modelo consiste de tres compartimiendos
+Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved)[1]. El modelo consiste de tres compartimiendos
 
 
 
@@ -337,7 +337,7 @@ Podemos ver cómo el modelo emula mejor el comportamiento de las muertes acomula
 Se puede ver como este modelo sigue una especie de promedio, pero no tiene en cuenta los picos (rebrotes) de covid debido a la relajación de medidas sanitarias para prevenirlo. Un modelo más realista se puede visualizar con un [diagrama ](https://pubs.acs.org/doi/10.1021/acs.iecr.0c04754)como el siguiente.
 
 
-## CASO ITALIA SIRD AVANZADO [1]
+## CASO ITALIA SIRD AVANZADO [2]
 
 
 ![image_2.png](README_images/image_2.png)
