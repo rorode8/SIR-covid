@@ -9,10 +9,16 @@
 El comportamiento de epidemias puede ser simulado con modelos matemáticos o modelos estadísticos. En este estudio nos concentraremos en los modelos matemáticos. Específicamente usaremos un modelo **compartimental**. Los modelos de este tipo simplifican el problema al dividir la población total en compartimentos, asumiendo que cada individuo en un mismo compartimento tiene las mismas características.
 
 
+# Objetivo
+
+
+Desarrollar diferentes modelos matematicos por medio de ODEs que nos permitan entender distintos aspectos de la pandemia, tales como medir la velocidad de propagación de los contagios, establecer el rol de algunos mecanismos en el proceso de propagación, evaluar medidas de mitigación y contención, hacer estimaciones de la capacidad hospitalaria, etc.
+
+
 # Requisitos
 
 
-Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved)[1]. El modelo consiste de tres compartimiendos
+Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved). El modelo consiste de tres compartimiendos
 
 
 
@@ -22,7 +28,7 @@ Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**u
 
 
 
-Usaremos un modelo para entender a grandes rasgos los comportamientos de una epidemia, así como la importancia de respetar medidas de seguridad.
+Cabe mencionar que este modelo, a pesar de ser muy usado en epidemiología, es muy básico porque no considera nacimientos o muertes en el análisis, tampoco la edad de las personas o la situación o estructura social en la que se encuentran. 
 
 
 
@@ -30,12 +36,9 @@ Usaremos un modelo para entender a grandes rasgos los comportamientos de una epi
 Al final compararemos nuestras gráficas de variables continuas contra las variables discretas y veremos que similitudes y diferencias se crean entre la realidad y este modelo matemático simple.
 
 
-
-
-El objetivo de este estudio es desarrollar diferentes modelos matematicos por medio de ODEs, analizar su comportamiento y determinar su efectividad y uso para la prevension y mejor preparamiento de epidemias.
-
-
 # Creación del modelo
+  
+### Modelo SIR
 
 
 Usaremos el modelo **SIR** de acuerdo al siguiente sistema de ecuaciones:
@@ -70,7 +73,7 @@ Por último <img src="https://latex.codecogs.com/gif.latex?\inline&space;\gamma"
 
 
   
-## Modelo SIRD
+### Modelo SIRD
 
 
 Podemos agregar más variantes al modelo base **SIR **para hacerlo más interesante y realista. En este caso agregamos un compartimiento extra para los decesos. De esta forma, solo pasarán a **R** los recuperados y los muertos se pasaran al nuevo compartimento **D**
@@ -115,15 +118,6 @@ gamma = 0.532271959; % rate of recovery
 delta = 1/60; % rate of immunity loss 100 days
 mu = 0.085470461; % fatallity rate
 N = 66650000; % Total UK population 
-```
-
-
-```text:Output
-N = 66650000
-```
-
-
-```matlab:Code
 I0 = 10; % initial number of infected
 T =  500; % period of 300 days
 dt = 1/4; % time interval of 6 hours (1/4 of a day)
@@ -132,7 +126,7 @@ fprintf('Reproduction Rate R0 is %.2f',N*beta/gamma)
 
 
 ```text:Output
-Value of parameter R0 is 1.21
+Reproduction Rate R0 is 1.21
 ```
 
 
@@ -169,7 +163,7 @@ fprintf('El pico de casos activos es de %d y sucede %d dias después de que empe
 
 
 ```text:Output
-el pico de casos activos es de 101819 y sucede 386 dias después de que empezó la pandemia
+El pico de casos activos es de 101819 y sucede 386 dias después de que empezó la pandemia
 ```
 
 
@@ -181,7 +175,7 @@ fprintf('El total de muertes son %d al día %d desde que empezó la pandemia',ro
 
 
 ```text:Output
-el total de muertes son 1412387 al día 500 desde que empezó la pandemia
+El total de muertes son 1412387 al día 500 desde que empezó la pandemia
 ```
 
 
@@ -197,63 +191,32 @@ Comparemos la acumulación de muertes de nuestra predicción contra la realidad 
 
 
 ```matlab:Code
-[~,~,data] = xlsread('UK-cum-death.csv');
-data
+data= readtable('UK-cum-death.csv');
+data([end-499:end],[2,4,5])
 ```
 
-| |1|2|3|4|5|
-|:--:|:--:|:--:|:--:|:--:|:--:|
-|1|'areaCode'|'areaName'|'areaType'|'date'|'cumDailyNsoDeathsBy...|
-|2|'K02000001'|'United Kingdom'|'overview'|'6/25/2021'|153926|
-|3|'K02000001'|'United Kingdom'|'overview'|'6/24/2021'|153916|
-|4|'K02000001'|'United Kingdom'|'overview'|'6/23/2021'|153897|
-|5|'K02000001'|'United Kingdom'|'overview'|'6/22/2021'|153891|
-|6|'K02000001'|'United Kingdom'|'overview'|'6/21/2021'|153876|
-|7|'K02000001'|'United Kingdom'|'overview'|'6/20/2021'|153864|
-|8|'K02000001'|'United Kingdom'|'overview'|'6/19/2021'|153848|
-|9|'K02000001'|'United Kingdom'|'overview'|'6/18/2021'|153831|
-|10|'K02000001'|'United Kingdom'|'overview'|'6/17/2021'|153815|
-|11|'K02000001'|'United Kingdom'|'overview'|'6/16/2021'|153807|
-|12|'K02000001'|'United Kingdom'|'overview'|'6/15/2021'|153796|
-|13|'K02000001'|'United Kingdom'|'overview'|'6/14/2021'|153776|
-|14|'K02000001'|'United Kingdom'|'overview'|'6/13/2021'|153765|
+| |areaName|date|cumDailyNsoDeathsByDeathDate|
+|:--:|:--:|:--:|:--:|
+|1|'United Kingdom'|06/12/2021|153753|
+|2|'United Kingdom'|06/11/2021|153742|
+|3|'United Kingdom'|06/10/2021|153729|
+|4|'United Kingdom'|06/09/2021|153714|
+|5|'United Kingdom'|06/08/2021|153698|
+|6|'United Kingdom'|06/07/2021|153683|
+|7|'United Kingdom'|06/06/2021|153677|
+|8|'United Kingdom'|06/05/2021|153664|
+|9|'United Kingdom'|06/04/2021|153658|
+|10|'United Kingdom'|06/03/2021|153646|
+|11|'United Kingdom'|06/02/2021|153631|
+|12|'United Kingdom'|06/01/2021|153619|
+|13|'United Kingdom'|05/31/2021|153609|
+|14|'United Kingdom'|05/30/2021|153598|
 
 
 ```matlab:Code
-column1 = data(end-499:end,5); %500 dias
+column1 = table2cell(data(end-499:end,5)); %500 dias
 deaths = cell2mat(column1);
-```
-
-
-```text:Output
-deaths = 500x1    
-      153753
-      153742
-      153729
-      153714
-      153698
-      153683
-      153677
-      153664
-      153658
-      153646
-
-```
-
-
-```matlab:Code
 days = 500:-1:1;
-```
-
-
-```text:Output
-days = 1x500    
-   500   499   498   497   496   495   494   493   492   491   490   489   488   487   486   485   484   483   482   481   480   479   478   477   476   475   474   473   472   471   470   469   468   467   466   465   464   463   462   461   460   459   458   457   456   455   454   453   452   451
-
-```
-
-
-```matlab:Code
 semilogy(days,deaths,"r o")
 hold on
 semilogy(t,D,"k")
@@ -267,7 +230,7 @@ hold off
 
 
 
-Como podia esperarse, al tomar una muestra tan grande de datos como lo son 346 dias y simplemente promedias las tasas de cambio incurrimos en un error bastante grande.
+Como podía esperarse, al tomar una muestra tan grande de datos como lo son 346 dias y simplemente promedias las tasas de cambio incurrimos en un error bastante grande.
 
 
 ## CASO ITALIA SIRD SIMPLE
@@ -374,7 +337,7 @@ Podemos ver cómo el modelo emula mejor el comportamiento de las muertes acomula
 Se puede ver como este modelo sigue una especie de promedio, pero no tiene en cuenta los picos (rebrotes) de covid debido a la relajación de medidas sanitarias para prevenirlo. Un modelo más realista se puede visualizar con un [diagrama ](https://pubs.acs.org/doi/10.1021/acs.iecr.0c04754)como el siguiente.
 
 
-## CASO ITALIA SIRD AVANZADO [2]
+## CASO ITALIA SIRD AVANZADO [1]
 
 
 ![image_2.png](README_images/image_2.png)
@@ -406,24 +369,6 @@ x0=0;
 T = 180;
 dt = 1/4; 
 y0= [N; 1; 0; 1; 1; 0; 1; 0];
-```
-
-
-```text:Output
-y0 = 8x1    
-    60460000
-           1
-           0
-           1
-           1
-           0
-           1
-           0
-
-```
-
-
-```matlab:Code
 [t,S, A, C, E, I, R, Q, D] = modelSIRDAvanzado(alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,lambda0,lambda1,k0,k1,N,y0,x0,dt,T);
 plot(t,[S I R D])
 legend('S','I','R','D')
@@ -495,6 +440,15 @@ Veamos ahora que pasa si se relajan las medidas preventivas, es decir un aumento
 ```matlab:Code
 
 betaBase = beta
+```
+
+
+```text:Output
+betaBase = 9.6905e-09
+```
+
+
+```matlab:Code
 for i = 1.1:0.1:1.5
     figure;
     beta = betaBase * i
@@ -513,13 +467,65 @@ for i = 1.1:0.1:1.5
     fprintf('Value of parameter R (Reproduction rate) is %.2f',N*beta/gamma)
     fprintf('El total de muertes son %d al día %d desde que empezó la pandemia \n',round(v),round(d))
 end
-    
+```
 
+
+```text:Output
+beta = 1.0660e-08
+```
+
+
+![figure_6.png](README_images/figure_6.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.33
+El total de muertes son 5716279 al día 500 desde que empezó la pandemia 
+beta = 1.1629e-08
+```
+
+
+![figure_7.png](README_images/figure_7.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.46
+El total de muertes son 9269041 al día 500 desde que empezó la pandemia 
+beta = 1.2598e-08
+```
+
+
+![figure_8.png](README_images/figure_8.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.58
+El total de muertes son 12173548 al día 500 desde que empezó la pandemia 
+beta = 1.3567e-08
+```
+
+
+![figure_9.png](README_images/figure_9.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.70
+El total de muertes son 14777172 al día 500 desde que empezó la pandemia 
+beta = 1.4536e-08
+```
+
+
+![figure_10.png](README_images/figure_10.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.82
+El total de muertes son 16935175 al día 500 desde que empezó la pandemia 
 ```
 
 
 
-Podemos ver como un incremento de apenas el 10% resulta en un gran incremento de decesos. Que en un escenario real, incrementaría a la vez la tasa de mortalidad y decrementaría por lo tanto la tasa de recuperación. Esto debido al sobrecupo de los hospitales.
+Podemos ver cómo un incremento de apenas el 10% resulta en un gran incremento de decesos. En un escenario real, incrementaría a la vez la tasa de mortalidad y decrementaría por lo tanto la tasa de recuperación. Esto debido al sobrecupo de los hospitales.
 
 
 ### GAMMA
@@ -549,10 +555,55 @@ for gamma = gammaBase:-0.11:gammaBase-0.11*4
 end
 ```
 
+
+![figure_11.png](README_images/figure_11.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.21
+El total de muertes son 1412387 al día 500 desde que empezó la pandemia 
+```
+
+
+![figure_12.png](README_images/figure_12.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 1.53
+El total de muertes son 10638058 al día 500 desde que empezó la pandemia 
+```
+
+
+![figure_13.png](README_images/figure_13.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 2.07
+El total de muertes son 21657465 al día 500 desde que empezó la pandemia 
+```
+
+
+![figure_14.png](README_images/figure_14.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 3.19
+El total de muertes son 34454982 al día 500 desde que empezó la pandemia 
+```
+
+
+![figure_15.png](README_images/figure_15.png)
+
+
+```text:Output
+Value of parameter R (Reproduction rate) is 7.00
+El total de muertes son 48173566 al día 500 desde que empezó la pandemia 
+```
+
 # Conclusión
 
 
-Los modelos matemáticos pueden ser útiles para predecir el comportamiento de variables interactuando entre ellas. En este caso es más fácil describir las variables por cómo cambian en lugar de por lo que representan. Es por esto que estos sistemas físicos son sistemas de ecuaciones diferenciales.
+Entender este comportamiento de la pandemia causada por la enfermedad coronavirus nos permite ver las medidas sanitarias necesarias, estructurar medidas de mitigación y contención, hacer estimaciones de la capacidad hospitalaria, entre otros. Esto se debe a que en los modelos matemáticos usados podemos interactuar con las variables y así tratar de predecir el comportamiento de varios aspectos de la pandemia. En este caso es más fácil describir las variables por cómo cambian en lugar de por lo que representan. Es por esto que estos sistemas físicos son sistemas de ecuaciones diferenciales.
 
 
 
@@ -562,17 +613,16 @@ Como vimos en el caso de Inglaterra, al usar un promedio de un año para los dat
 
 
 
-En el primer caso de Italia con SIRD simple obtuvimos buenos resultados. Esto se debe a que los coeficientes tienen sentido para este marco de tiempo. Podriamos probablemente recortar los datos a tan solo 14 dias y obtener una buena simulación de los siguientes 30 días si la situación no cambia. Es aqui donde vemos cómo estos modelos nos muestran un escenario realista. De esta forma, podemos reaccionar proactivamente antes de una catastrofe.
+En el primer caso de Italia con SIRD simple obtuvimos buenos resultados. Esto se debe a que los coeficientes tienen sentido para este marco de tiempo. Podriamos probablemente recortar los datos a tan solo 14 dias y obtener una buena simulación de los siguientes 30 días si la situación no cambia. Es aquí donde vemos cómo estos modelos nos muestran un escenario realista o muy aproximado a la realidad. De esta forma, podemos reaccionar proactivamente antes de una catastrofe.
 
 
 
 
-El último modelo está hecho para verse de una forma retrospectiva, dificelmente podremos calcular todos los coeficientes de forma previa. Pero podemos calcular diferentes escenarios jugando con estos coeficientes y ver la severidad de estos casos hipoteticos.
+El último modelo está hecho para verse de una forma retrospectiva, difícilmente podremos calcular todos los coeficientes de forma previa. Pero podemos calcular diferentes escenarios jugando con estos coeficientes y ver la severidad de estos casos hipoteticos.
 
 
   
 # Referencias
-  
 
 
 [1] R. Beckley, C.Weatherspoon, M. Alexander , M. Chandler, A.Johnson , and G. S. Bhatt."Modeling epidemics with differential equations". Tennessee State University. [[link]](https://www.tnstate.edu/mathematics/mathreu/filesreu/GroupProjectSIR.pdf). visitado 5/7/2021
@@ -580,10 +630,9 @@ El último modelo está hecho para verse de una forma retrospectiva, dificelment
 
 
 
-[2]  [Ind. Eng. Chem. Res. 2021, 60, 11, 4251–4260](https://pubs.acs.org/doi/10.1021/acs.iecr.0c04754)
+[2] [Ind. Eng. Chem. Res. 2021, 60, 11, 4251–4260](https://pubs.acs.org/doi/10.1021/acs.iecr.0c04754)
 
 
-  
 # Funciones
 
 ```matlab:Code
@@ -685,6 +734,61 @@ function dydt = SIRDAfunct(t,y,alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,l
     dydt(6) = (lambda0 + (t/tf)*(lambda1-lambda0))*y(7); %dR
     dydt(7) = delta*y(5)-((lambda0 + (t/tf)*(lambda1-lambda0))*y(7)) -((k0 + (t/tf)*(k1-k0))*y(7)); %dQ
     dydt(8) = (k0 + (t/tf)*(k1-k0))*y(7); %dD
+
+end
+
+function [tout,yout] = ode23simple(F,tspan,y0,relTol)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+    if not(relTol)
+        relTol = 1.e-8;
+    end
+    
+
+    t0 = tspan(1);
+    tfinal = tspan(2);
+    tdir = sign(tfinal - t0);
+    hmax = abs(0.1*(tfinal-t0));
+    t = t0;
+    y = y0(:);
+% Initialize output.
+    tout = t;
+    yout = y.';
+    s1 = F(t, y);
+    r = norm(s1./max(abs(y),relTol),inf) + realmin;
+    h = tdir*0.8*relTol^(1/3)/r;
+    while t ~= tfinal
+        hmin = 16*eps*abs(t);
+        if abs(h) > hmax, h = tdir*hmax; end
+        if abs(h) < hmin, h = tdir*hmin; end
+        % Stretch the step if t is close to tfinal.
+        if 1.1*abs(h) >= abs(tfinal - t)
+            h = tfinal - t;
+        end
+        s2 = F(t+h/2, y+h/2*s1);
+        s3 = F(t+3*h/4, y+3*h/4*s2);
+        tnew = t + h;
+        ynew = y + h*(2*s1 + 3*s2 + 4*s3)/9;
+        s4 = F(tnew, ynew);
+        e = h*(-5*s1 + 6*s2 + 8*s3 - 9*s4)/72;
+        err = norm(e./max(max(abs(y),abs(ynew)),relTol),inf) + realmin;
+        if err <= relTol %reduce error
+            t = tnew;
+            y = ynew;
+
+            tout(end+1,1) = t;
+            yout(end+1,:) = y.';
+
+            s1 = s4; % Reuse final function value to start new step.
+        end
+        % Compute a new step size.
+        h = h*(relTol/err)^(1/3);
+        %h = h*min(5,0.8*(relTol/err)^(1/3));
+        if abs(h) <= hmin
+            warning(sprintf('Step size %e too small at t = %e.\n',h,t));
+            t = tfinal;
+        end
+     end
 
 end
 
