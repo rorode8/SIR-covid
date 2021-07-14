@@ -19,8 +19,11 @@
 \epstopdfsetup{outdir=./}
 \graphicspath{ {./README_images/} }
 
+\matlabhastoc
+
 \begin{document}
 
+\label{T_E5E5863A}
 \matlabtitle{Curvas de comportamiento de COVID 19}
 
 \begin{par}
@@ -35,6 +38,10 @@ El comportamiento de epidemias puede ser simulado con modelos matemáticos o mod
 \end{flushleft}
 \end{par}
 
+\matlabtableofcontents{Tabla de contenidos}
+
+\vspace{1em}
+\label{H_7F724767}
 \matlabheading{Objetivo}
 
 \begin{par}
@@ -43,6 +50,7 @@ Desarrollar diferentes modelos matematicos por medio de ODEs que nos permitan en
 \end{flushleft}
 \end{par}
 
+\label{H_C4A91603}
 \matlabheading{Requisitos}
 
 \begin{par}
@@ -70,10 +78,12 @@ Al final compararemos nuestras gráficas de variables continuas contra las varia
 \end{flushleft}
 \end{par}
 
+\label{H_EFE856C2}
 \matlabheading{Creación del modelo}
 
 
 \vspace{1em}
+\label{H_F78B1BB0}
 \matlabheadingthree{Modelo SIR}
 
 \begin{par}
@@ -122,6 +132,7 @@ Por último $\gamma$(gamma) representa la taza de recuperación.
 
 
 \vspace{1em}
+\label{H_E2431A0D}
 \matlabheadingthree{Modelo SIRD}
 
 \begin{par}
@@ -159,6 +170,7 @@ $$\begin{array}{l}
 \end{array}$$
 \end{par}
 
+\label{H_78E38C91}
 \matlabheading{Implementación}
 
 \begin{par}
@@ -194,6 +206,7 @@ Reproduction Rate R0 is 1.21
 [t,S,I,R,D] = modelSIRD(beta,gamma,delta,mu,N,I0,T,dt);
 \end{matlabcode}
 
+\label{H_1FA3D35F}
 \matlabheading{Pruebas y resultados}
 
 \begin{matlabcode}
@@ -238,6 +251,7 @@ La gráfica que resulta del modelo SIRD puede no distanciar mucho de la gráfica
 \end{flushleft}
 \end{par}
 
+\label{H_4075C732}
 \matlabheading{Comparación datos reales}
 
 \begin{par}
@@ -294,6 +308,7 @@ Como podía esperarse, al tomar una muestra tan grande de datos como lo son 346 
 \end{par}
 
 
+\label{H_FB4C3C2C}
 \matlabheadingtwo{CASO ITALIA SIRD SIMPLE}
 
 \begin{par}
@@ -385,6 +400,7 @@ Se puede ver como este modelo sigue una especie de promedio, pero no tiene en cu
 \end{par}
 
 
+\label{H_80404E36}
 \matlabheadingtwo{CASO ITALIA SIRD AVANZADO [2]}
 
 \begin{par}
@@ -455,6 +471,7 @@ Aunque los números de la predicción son mayores, el comportamiento es parecido
 \end{par}
 
 
+\label{H_D6BE3D2B}
 \matlabheadingtwo{Entendiendo la importancia de los coeficientes}
 
 \begin{par}
@@ -476,6 +493,7 @@ dt = 1/4; % time interval of 6 hours (1/4 of a day)
 [t,S,I,R,D] = modelSIRD(beta,gamma,delta,mu,N,I0,T,dt);
 \end{matlabcode}
 
+\label{H_409BC650}
 \matlabheadingthree{BETA}
 
 \begin{par}
@@ -566,6 +584,7 @@ Podemos ver cómo un incremento de apenas el 10\% resulta en un gran incremento 
 \end{flushleft}
 \end{par}
 
+\label{H_B5072C61}
 \matlabheadingthree{GAMMA}
 
 \begin{par}
@@ -630,6 +649,7 @@ El total de muertes son 48173566 al día 500 desde que empezó la pandemia
 \end{matlaboutput}
 
 
+\label{H_E38515E4}
 \matlabheading{Conclusión}
 
 \begin{par}
@@ -659,6 +679,7 @@ El último modelo está hecho para verse de una forma retrospectiva, difícilmen
 
 \vspace{1em}
 
+\label{H_6EED7AAE}
 \matlabheading{Referencias}
 
 \begin{par}
@@ -674,6 +695,7 @@ El último modelo está hecho para verse de una forma retrospectiva, difícilmen
 \end{par}
 
 
+\label{H_25C2B3D9}
 \matlabheading{Funciones}
 
 \begin{matlabcode}
