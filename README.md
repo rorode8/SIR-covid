@@ -19,7 +19,7 @@ Desarrollar diferentes modelos matematicos por medio de ODEs que nos permitan en
 # Requisitos
 
 
-Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved)[1]. El modelo consiste de tres compartimiendos
+Para simular el comportamiento de la epidemia usaremos el modelo **SIR **(**S**usceptible **I**nfectious **R**emoved)[1]. El modelo consiste de al menos tres compartimiendos
 
 
 
@@ -35,6 +35,11 @@ Cabe mencionar que este modelo, a pesar de ser muy usado en epidemiología, es m
 
 
 Al final compararemos nuestras gráficas de variables continuas contra las variables discretas y veremos que similitudes y diferencias se crean entre la realidad y este modelo matemático simple.
+
+
+
+
+Para considerarse exitoso el modelo deberá asimilar los datos reales en al menos un escenario con datos previos contra los que se le compare.
 
 
 # Creación del modelo
@@ -234,6 +239,14 @@ hold off
 Como podía esperarse, al tomar una muestra tan grande de datos como lo son 346 dias y simplemente promedias las tasas de cambio incurrimos en un error bastante grande.
 
 
+
+
+Este **no** modelo cumple todos los requisitos formulados previamente ya que:
+
+
+
+   -  el modelo tiene demasiado error y no se asemeja a la curva de los datos reales 
+
 ## CASO ITALIA SIRD SIMPLE
 
 
@@ -332,12 +345,17 @@ ylabel("Death toll")
 Podemos ver cómo el modelo emula mejor el comportamiento de las muertes acomuladas reales, sin embargo, las autoridades en italia tomaron [medidas preventivas para reducir los contagios y las muertes](https://www.garda.com/crisis24/news-alerts/367781/italy-authorities-extend-covid-19-restrictions-until-september-7-update-38). 
 
 
+
+
+Este modelo cumple todos los requisitos formulados previamente ya que:
+
+
+
+   -  es un modelo matematico de ODEs 
+   -  su comportamiento es parecido a los datos reales 
+   -  los datos usados para calcular los coeficientes solo son de 90 días 
+
   
-
-
-Se puede ver como este modelo sigue una especie de promedio, pero no tiene en cuenta los picos (rebrotes) de covid debido a la relajación de medidas sanitarias para prevenirlo. Un modelo más realista se puede visualizar con un [diagrama ](https://pubs.acs.org/doi/10.1021/acs.iecr.0c04754)como el siguiente.
-
-
 ## CASO ITALIA SIRD AVANZADO [2]
 
 
@@ -404,6 +422,11 @@ ylabel("Death toll");
 
 
 Aunque los números de la predicción son mayores, el comportamiento es parecido, ambas gráficas se empiezan a aplanar a los 40-60 días.
+
+
+
+
+Este modelo con estos datos en particular **no **cumple con los requisitos definidos ya que los números no son realistas. 
 
 
 ## Entendiendo la importancia de los coeficientes
@@ -622,7 +645,11 @@ En el primer caso de Italia con SIRD simple obtuvimos buenos resultados. Esto se
 El último modelo está hecho para verse de una forma retrospectiva, difícilmente podremos calcular todos los coeficientes de forma previa. Pero podemos calcular diferentes escenarios jugando con estos coeficientes y ver la severidad de estos casos hipoteticos.
 
 
-  
+
+
+Finalmente, observamos como solo el SIRD simple de Italia cumple con todos los requisitos. Al contrario del SIRD avanzado. Esto nos muestra como los sistemas más complejos son muy delicados en cuanto a la exactitud de los párametros (coeficientes) que se usan en el modelo. El modelo y su efectividad dependen más fuertemente de estos coeficientes que de su complejidad misma. 
+
+
 # Referencias
 
 
@@ -735,61 +762,6 @@ function dydt = SIRDAfunct(t,y,alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,l
     dydt(6) = (lambda0 + (t/tf)*(lambda1-lambda0))*y(7); %dR
     dydt(7) = delta*y(5)-((lambda0 + (t/tf)*(lambda1-lambda0))*y(7)) -((k0 + (t/tf)*(k1-k0))*y(7)); %dQ
     dydt(8) = (k0 + (t/tf)*(k1-k0))*y(7); %dD
-
-end
-
-function [tout,yout] = ode23simple(F,tspan,y0,relTol)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
-    if not(relTol)
-        relTol = 1.e-8;
-    end
-    
-
-    t0 = tspan(1);
-    tfinal = tspan(2);
-    tdir = sign(tfinal - t0);
-    hmax = abs(0.1*(tfinal-t0));
-    t = t0;
-    y = y0(:);
-% Initialize output.
-    tout = t;
-    yout = y.';
-    s1 = F(t, y);
-    r = norm(s1./max(abs(y),relTol),inf) + realmin;
-    h = tdir*0.8*relTol^(1/3)/r;
-    while t ~= tfinal
-        hmin = 16*eps*abs(t);
-        if abs(h) > hmax, h = tdir*hmax; end
-        if abs(h) < hmin, h = tdir*hmin; end
-        % Stretch the step if t is close to tfinal.
-        if 1.1*abs(h) >= abs(tfinal - t)
-            h = tfinal - t;
-        end
-        s2 = F(t+h/2, y+h/2*s1);
-        s3 = F(t+3*h/4, y+3*h/4*s2);
-        tnew = t + h;
-        ynew = y + h*(2*s1 + 3*s2 + 4*s3)/9;
-        s4 = F(tnew, ynew);
-        e = h*(-5*s1 + 6*s2 + 8*s3 - 9*s4)/72;
-        err = norm(e./max(max(abs(y),abs(ynew)),relTol),inf) + realmin;
-        if err <= relTol %reduce error
-            t = tnew;
-            y = ynew;
-
-            tout(end+1,1) = t;
-            yout(end+1,:) = y.';
-
-            s1 = s4; % Reuse final function value to start new step.
-        end
-        % Compute a new step size.
-        h = h*(relTol/err)^(1/3);
-        %h = h*min(5,0.8*(relTol/err)^(1/3));
-        if abs(h) <= hmin
-            warning(sprintf('Step size %e too small at t = %e.\n',h,t));
-            t = tfinal;
-        end
-     end
 
 end
 
