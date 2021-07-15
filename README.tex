@@ -23,7 +23,7 @@
 
 \begin{document}
 
-\label{T_E5E5863A}
+\label{T_E81BD9AA}
 \matlabtitle{Curvas de comportamiento de COVID 19}
 
 \begin{par}
@@ -41,21 +41,24 @@ El comportamiento de epidemias puede ser simulado con modelos matemáticos o mod
 \matlabtableofcontents{Tabla de contenidos}
 
 \vspace{1em}
-\label{H_7F724767}
-\matlabheading{Objetivo}
+\label{H_89D14292}
+\matlabheading{Identificación del Problema}
+
+\label{H_94A2E453}
+\matlabheadingtwo{Objetivo}
 
 \begin{par}
 \begin{flushleft}
-Desarrollar diferentes modelos matematicos por medio de ODEs que nos permitan entender distintos aspectos de la pandemia, tales como medir la velocidad de propagación de los contagios, establecer el rol de algunos mecanismos en el proceso de propagación, evaluar medidas de mitigación y contención, hacer estimaciones de la capacidad hospitalaria, etc.
+Desarrollar diferentes modelos matemáticos por medio de ODEs que nos permitan entender distintos aspectos de la pandemia, tales como medir la velocidad de propagación de los contagios, establecer el rol de algunos mecanismos en el proceso de propagación, evaluar medidas de mitigación y contención, hacer estimaciones de la capacidad hospitalaria, etc.
 \end{flushleft}
 \end{par}
 
-\label{H_C4A91603}
-\matlabheading{Requisitos}
+\label{H_ACEE4DF2}
+\matlabheadingtwo{Requisitos}
 
 \begin{par}
 \begin{flushleft}
-Para simular el comportamiento de la epidemia usaremos el modelo \textbf{SIR }(\textbf{S}usceptible \textbf{I}nfectious \textbf{R}emoved)[1]. El modelo consiste de al menos tres compartimiendos
+Para simular el comportamiento de la epidemia usaremos el modelo \textbf{SIR }(\textbf{S}usceptible \textbf{I}nfectious \textbf{R}emoved)[1]. El modelo consiste de al menos tres compartimientos.
 \end{flushleft}
 \end{par}
 
@@ -74,7 +77,7 @@ Cabe mencionar que este modelo, a pesar de ser muy usado en epidemiología, es m
 
 \begin{par}
 \begin{flushleft}
-Al final compararemos nuestras gráficas de variables continuas contra las variables discretas y veremos que similitudes y diferencias se crean entre la realidad y este modelo matemático simple.
+Al final compararemos nuestras gráficas de variables continuas contra las variables discretas y veremos qué similitudes y diferencias se crean entre la realidad y este modelo matemático simple.
 \end{flushleft}
 \end{par}
 
@@ -84,12 +87,12 @@ Para considerarse exitoso el modelo deberá asimilar los datos reales en al meno
 \end{flushleft}
 \end{par}
 
-\label{H_EFE856C2}
-\matlabheading{Creación del modelo}
+\label{H_669754B6}
+\matlabheading{\textbf{Modelo Matemático}}
 
 
 \vspace{1em}
-\label{H_F78B1BB0}
+\label{H_36400DEA}
 \matlabheadingthree{Modelo SIR}
 
 \begin{par}
@@ -108,19 +111,19 @@ $$\begin{array}{l}
 
 \begin{par}
 \begin{flushleft}
-Aquí $\beta \cdot \mathrm{S}\cdot \mathrm{I}$ representa la cantidad de personas que es contagiada, es decir, los que pasan de ser susceptibles a ser contagiados (infectados). Es por esto que la constante $\beta$ (beta) representa la taza de infección. Se sabe que unas cepas de covid son más infecciosas que otras.
+Aquí $\beta \cdot \mathrm{S}\cdot \mathrm{I}$ representa la cantidad de personas que son contagiadas, es decir, los que pasan de ser susceptibles a ser contagiados (infectados). Es por esto que la constante $\beta$ (beta) representa la tasa de infección. Se sabe que unas cepas de covid son más infecciosas que otras.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-De la misma forma $\delta$ representa la perdida de inmunidad. Por eso $\delta \cdot \mathrm{R}$ representa a aquellos que pasan del compartimiento de removed, a ser susceptibles otra vez, es decir que pueden volverse a infectar.
+De la misma forma $\delta$ representa la pérdida de inmunidad. Por eso $\delta \cdot \mathrm{R}$ representa a aquellos que pasan del compartimiento de \textit{\textbf{R}}\textit{emoved}, a ser susceptibles otra vez, es decir que pueden volverse a infectar.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Por último $\gamma$(gamma) representa la taza de recuperación.
+Por último $\gamma$(gamma) representa la tasa de recuperación.
 \end{flushleft}
 \end{par}
 
@@ -138,12 +141,12 @@ Por último $\gamma$(gamma) representa la taza de recuperación.
 
 
 \vspace{1em}
-\label{H_E2431A0D}
+\label{H_B9862688}
 \matlabheadingthree{Modelo SIRD}
 
 \begin{par}
 \begin{flushleft}
-Podemos agregar más variantes al modelo base \textbf{SIR }para hacerlo más interesante y realista. En este caso agregamos un compartimiento extra para los decesos. De esta forma, solo pasarán a \textbf{R} los recuperados y los muertos se pasaran al nuevo compartimento \textbf{D}
+Podemos agregar más variantes al modelo base \textbf{SIR }para hacerlo más interesante y realista. En este caso agregamos un compartimento extra para los decesos. De esta forma, solo pasarán a \textbf{R} los recuperados y los muertos se pasarán al nuevo compartimento \textbf{D}
 \end{flushleft}
 \end{par}
 
@@ -176,18 +179,18 @@ $$\begin{array}{l}
 \end{array}$$
 \end{par}
 
-\label{H_78E38C91}
-\matlabheading{Implementación}
+\label{H_F5511AD2}
+\matlabheadingtwo{Creación del modelo con datos}
 
 \begin{par}
 \begin{flushleft}
-Antes de implementar el modelo es importante mencionar las razones por las que el modelo no verá como una curva real de covid con varios repuntes. Los coeficientes usados aquí son promedios obtenidos de los datos de \href{https://covid.ourworldindata.org/data/owid-covid-data.csv}{owid} para el reino Unido (UK). Esto causa que no se tome en cuenta las diferentes medidas tomadas por el gobierno para controlar en cierto espacio de tiempo, solo refleja como se comporta en promedio.
+Antes de implementar el modelo es importante mencionar las razones por las que el modelo no se verá como una curva real de covid con varios repuntes. Los coeficientes usados aquí son promedios obtenidos de los datos de \href{https://covid.ourworldindata.org/data/owid-covid-data.csv}{OWID} para el Reino Unido (UK). Esto causa que no se tome en cuenta las diferentes medidas tomadas por el gobierno para controlar en cierto espacio de tiempo, solo refleja cómo se comporta en promedio.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Para la taza de perdida de inmunidad no existen los datos para calcularlo en para un país en específico, así que usaremos un valor promedio usado en \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7598795/}{otros estudios}.
+Para la tasa de pérdida de inmunidad no existen los datos para calcularlo en para un país en específico, así que usaremos un valor promedio usado en \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7598795/}{otros estudios}.
 \end{flushleft}
 \end{par}
 
@@ -203,16 +206,16 @@ N = 66650000; % Total UK population
 I0 = 10; % initial number of infected
 T =  500; % period of 300 days
 dt = 1/4; % time interval of 6 hours (1/4 of a day)
-fprintf('Reproduction Rate R0 is %.2f',N*beta/gamma)
+fprintf('La tasa de reproducción R es de %.2f',N*beta/gamma)
 \end{matlabcode}
 \begin{matlaboutput}
-Reproduction Rate R0 is 1.21
+La tasa de reproducción R es de 1.21
 \end{matlaboutput}
 \begin{matlabcode}
 [t,S,I,R,D] = modelSIRD(beta,gamma,delta,mu,N,I0,T,dt);
 \end{matlabcode}
 
-\label{H_1FA3D35F}
+\label{H_AE618BE1}
 \matlabheading{Pruebas y resultados}
 
 \begin{matlabcode}
@@ -230,16 +233,16 @@ legend('S','I','R','D','Location','southeast');
 hold off
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_0.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_0.eps}
 \end{center}
 \begin{matlabcode}
 
 [v,i]=max(I);
 d=i/4;
-fprintf('El pico de casos activos es de %d y sucede %d dias después de que empezó la pandemia',round(v),round(d))
+fprintf('El pico de casos activos es de %d y sucede %d días después de que empezó la pandemia',round(v),round(d))
 \end{matlabcode}
 \begin{matlaboutput}
-El pico de casos activos es de 101819 y sucede 386 dias después de que empezó la pandemia
+El pico de casos activos es de 101819 y sucede 386 días después de que empezó la pandemia
 \end{matlaboutput}
 \begin{matlabcode}
 [v,i]=max(D);
@@ -253,16 +256,16 @@ El total de muertes son 1412387 al día 500 desde que empezó la pandemia
 
 \begin{par}
 \begin{flushleft}
-La gráfica que resulta del modelo SIRD puede no distanciar mucho de la gráfica real por las limitaciones que mencionamos antes. Es importante ver que el modelo solo nos muestra el rol que juega cada variable dentro de una determinada población. En el caso del Reino unido, la tasa de mortalidad varia desde 2\% hasta 14\% dependiendo de la fecha.
+La gráfica que resulta del modelo SIRD puede no distanciarse mucho de la gráfica real por las limitaciones que mencionamos antes. Es importante ver que el modelo solo nos muestra el rol que juega cada variable dentro de una determinada población. En el caso del Reino Unido, la tasa de mortalidad varía desde 2\% hasta 14\% dependiendo de la fecha.
 \end{flushleft}
 \end{par}
 
-\label{H_4075C732}
-\matlabheading{Comparación datos reales}
+\label{H_B1B6F5D8}
+\matlabheadingtwo{Comparación datos reales}
 
 \begin{par}
 \begin{flushleft}
-Comparemos la acumulación de muertes de nuestra predicción contra la realidad https://coronavirus.data.gov.uk/details/download
+Comparemos la acumulación de muertes de nuestra predicción contra los datos de OWID.
 \end{flushleft}
 \end{par}
 
@@ -287,7 +290,93 @@ data([end-499:end],[2,4,5])
 \mlcell{11} & \mlcell{'United Kingdom'} & \mlcell{06/02/2021} & \mlcell{153631} \\ \hline
 \mlcell{12} & \mlcell{'United Kingdom'} & \mlcell{06/01/2021} & \mlcell{153619} \\ \hline
 \mlcell{13} & \mlcell{'United Kingdom'} & \mlcell{05/31/2021} & \mlcell{153609} \\ \hline
-\mlcell{14} & \mlcell{'United Kingdom'} & \mlcell{05/30/2021} & \mlcell{153598} \\ 
+\mlcell{14} & \mlcell{'United Kingdom'} & \mlcell{05/30/2021} & \mlcell{153598} \\ \hline
+\mlcell{15} & \mlcell{'United Kingdom'} & \mlcell{05/29/2021} & \mlcell{153590} \\ \hline
+\mlcell{16} & \mlcell{'United Kingdom'} & \mlcell{05/28/2021} & \mlcell{153578} \\ \hline
+\mlcell{17} & \mlcell{'United Kingdom'} & \mlcell{05/27/2021} & \mlcell{153565} \\ \hline
+\mlcell{18} & \mlcell{'United Kingdom'} & \mlcell{05/26/2021} & \mlcell{153557} \\ \hline
+\mlcell{19} & \mlcell{'United Kingdom'} & \mlcell{05/25/2021} & \mlcell{153543} \\ \hline
+\mlcell{20} & \mlcell{'United Kingdom'} & \mlcell{05/24/2021} & \mlcell{153534} \\ \hline
+\mlcell{21} & \mlcell{'United Kingdom'} & \mlcell{05/23/2021} & \mlcell{153518} \\ \hline
+\mlcell{22} & \mlcell{'United Kingdom'} & \mlcell{05/22/2021} & \mlcell{153503} \\ \hline
+\mlcell{23} & \mlcell{'United Kingdom'} & \mlcell{05/21/2021} & \mlcell{153499} \\ \hline
+\mlcell{24} & \mlcell{'United Kingdom'} & \mlcell{05/20/2021} & \mlcell{153483} \\ \hline
+\mlcell{25} & \mlcell{'United Kingdom'} & \mlcell{05/19/2021} & \mlcell{153477} \\ \hline
+\mlcell{26} & \mlcell{'United Kingdom'} & \mlcell{05/18/2021} & \mlcell{153473} \\ \hline
+\mlcell{27} & \mlcell{'United Kingdom'} & \mlcell{05/17/2021} & \mlcell{153464} \\ \hline
+\mlcell{28} & \mlcell{'United Kingdom'} & \mlcell{05/16/2021} & \mlcell{153452} \\ \hline
+\mlcell{29} & \mlcell{'United Kingdom'} & \mlcell{05/15/2021} & \mlcell{153439} \\ \hline
+\mlcell{30} & \mlcell{'United Kingdom'} & \mlcell{05/14/2021} & \mlcell{153425} \\ \hline
+\mlcell{31} & \mlcell{'United Kingdom'} & \mlcell{05/13/2021} & \mlcell{153411} \\ \hline
+\mlcell{32} & \mlcell{'United Kingdom'} & \mlcell{05/12/2021} & \mlcell{153397} \\ \hline
+\mlcell{33} & \mlcell{'United Kingdom'} & \mlcell{05/11/2021} & \mlcell{153382} \\ \hline
+\mlcell{34} & \mlcell{'United Kingdom'} & \mlcell{05/10/2021} & \mlcell{153362} \\ \hline
+\mlcell{35} & \mlcell{'United Kingdom'} & \mlcell{05/09/2021} & \mlcell{153354} \\ \hline
+\mlcell{36} & \mlcell{'United Kingdom'} & \mlcell{05/08/2021} & \mlcell{153344} \\ \hline
+\mlcell{37} & \mlcell{'United Kingdom'} & \mlcell{05/07/2021} & \mlcell{153324} \\ \hline
+\mlcell{38} & \mlcell{'United Kingdom'} & \mlcell{05/06/2021} & \mlcell{153307} \\ \hline
+\mlcell{39} & \mlcell{'United Kingdom'} & \mlcell{05/05/2021} & \mlcell{153290} \\ \hline
+\mlcell{40} & \mlcell{'United Kingdom'} & \mlcell{05/04/2021} & \mlcell{153269} \\ \hline
+\mlcell{41} & \mlcell{'United Kingdom'} & \mlcell{05/03/2021} & \mlcell{153254} \\ \hline
+\mlcell{42} & \mlcell{'United Kingdom'} & \mlcell{05/02/2021} & \mlcell{153238} \\ \hline
+\mlcell{43} & \mlcell{'United Kingdom'} & \mlcell{05/01/2021} & \mlcell{153220} \\ \hline
+\mlcell{44} & \mlcell{'United Kingdom'} & \mlcell{04/30/2021} & \mlcell{153205} \\ \hline
+\mlcell{45} & \mlcell{'United Kingdom'} & \mlcell{04/29/2021} & \mlcell{153189} \\ \hline
+\mlcell{46} & \mlcell{'United Kingdom'} & \mlcell{04/28/2021} & \mlcell{153172} \\ \hline
+\mlcell{47} & \mlcell{'United Kingdom'} & \mlcell{04/27/2021} & \mlcell{153151} \\ \hline
+\mlcell{48} & \mlcell{'United Kingdom'} & \mlcell{04/26/2021} & \mlcell{153126} \\ \hline
+\mlcell{49} & \mlcell{'United Kingdom'} & \mlcell{04/25/2021} & \mlcell{153107} \\ \hline
+\mlcell{50} & \mlcell{'United Kingdom'} & \mlcell{04/24/2021} & \mlcell{153082} \\ \hline
+\mlcell{51} & \mlcell{'United Kingdom'} & \mlcell{04/23/2021} & \mlcell{153058} \\ \hline
+\mlcell{52} & \mlcell{'United Kingdom'} & \mlcell{04/22/2021} & \mlcell{153029} \\ \hline
+\mlcell{53} & \mlcell{'United Kingdom'} & \mlcell{04/21/2021} & \mlcell{152996} \\ \hline
+\mlcell{54} & \mlcell{'United Kingdom'} & \mlcell{04/20/2021} & \mlcell{152961} \\ \hline
+\mlcell{55} & \mlcell{'United Kingdom'} & \mlcell{04/19/2021} & \mlcell{152928} \\ \hline
+\mlcell{56} & \mlcell{'United Kingdom'} & \mlcell{04/18/2021} & \mlcell{152905} \\ \hline
+\mlcell{57} & \mlcell{'United Kingdom'} & \mlcell{04/17/2021} & \mlcell{152875} \\ \hline
+\mlcell{58} & \mlcell{'United Kingdom'} & \mlcell{04/16/2021} & \mlcell{152835} \\ \hline
+\mlcell{59} & \mlcell{'United Kingdom'} & \mlcell{04/15/2021} & \mlcell{152805} \\ \hline
+\mlcell{60} & \mlcell{'United Kingdom'} & \mlcell{04/14/2021} & \mlcell{152764} \\ \hline
+\mlcell{61} & \mlcell{'United Kingdom'} & \mlcell{04/13/2021} & \mlcell{152731} \\ \hline
+\mlcell{62} & \mlcell{'United Kingdom'} & \mlcell{04/12/2021} & \mlcell{152685} \\ \hline
+\mlcell{63} & \mlcell{'United Kingdom'} & \mlcell{04/11/2021} & \mlcell{152649} \\ \hline
+\mlcell{64} & \mlcell{'United Kingdom'} & \mlcell{04/10/2021} & \mlcell{152610} \\ \hline
+\mlcell{65} & \mlcell{'United Kingdom'} & \mlcell{04/09/2021} & \mlcell{152567} \\ \hline
+\mlcell{66} & \mlcell{'United Kingdom'} & \mlcell{04/08/2021} & \mlcell{152529} \\ \hline
+\mlcell{67} & \mlcell{'United Kingdom'} & \mlcell{04/07/2021} & \mlcell{152469} \\ \hline
+\mlcell{68} & \mlcell{'United Kingdom'} & \mlcell{04/06/2021} & \mlcell{152425} \\ \hline
+\mlcell{69} & \mlcell{'United Kingdom'} & \mlcell{04/05/2021} & \mlcell{152380} \\ \hline
+\mlcell{70} & \mlcell{'United Kingdom'} & \mlcell{04/04/2021} & \mlcell{152338} \\ \hline
+\mlcell{71} & \mlcell{'United Kingdom'} & \mlcell{04/03/2021} & \mlcell{152288} \\ \hline
+\mlcell{72} & \mlcell{'United Kingdom'} & \mlcell{04/02/2021} & \mlcell{152248} \\ \hline
+\mlcell{73} & \mlcell{'United Kingdom'} & \mlcell{04/01/2021} & \mlcell{152198} \\ \hline
+\mlcell{74} & \mlcell{'United Kingdom'} & \mlcell{03/31/2021} & \mlcell{152137} \\ \hline
+\mlcell{75} & \mlcell{'United Kingdom'} & \mlcell{03/30/2021} & \mlcell{152063} \\ \hline
+\mlcell{76} & \mlcell{'United Kingdom'} & \mlcell{03/29/2021} & \mlcell{152009} \\ \hline
+\mlcell{77} & \mlcell{'United Kingdom'} & \mlcell{03/28/2021} & \mlcell{151941} \\ \hline
+\mlcell{78} & \mlcell{'United Kingdom'} & \mlcell{03/27/2021} & \mlcell{151894} \\ \hline
+\mlcell{79} & \mlcell{'United Kingdom'} & \mlcell{03/26/2021} & \mlcell{151832} \\ \hline
+\mlcell{80} & \mlcell{'United Kingdom'} & \mlcell{03/25/2021} & \mlcell{151760} \\ \hline
+\mlcell{81} & \mlcell{'United Kingdom'} & \mlcell{03/24/2021} & \mlcell{151685} \\ \hline
+\mlcell{82} & \mlcell{'United Kingdom'} & \mlcell{03/23/2021} & \mlcell{151616} \\ \hline
+\mlcell{83} & \mlcell{'United Kingdom'} & \mlcell{03/22/2021} & \mlcell{151524} \\ \hline
+\mlcell{84} & \mlcell{'United Kingdom'} & \mlcell{03/21/2021} & \mlcell{151422} \\ \hline
+\mlcell{85} & \mlcell{'United Kingdom'} & \mlcell{03/20/2021} & \mlcell{151299} \\ \hline
+\mlcell{86} & \mlcell{'United Kingdom'} & \mlcell{03/19/2021} & \mlcell{151200} \\ \hline
+\mlcell{87} & \mlcell{'United Kingdom'} & \mlcell{03/18/2021} & \mlcell{151099} \\ \hline
+\mlcell{88} & \mlcell{'United Kingdom'} & \mlcell{03/17/2021} & \mlcell{151000} \\ \hline
+\mlcell{89} & \mlcell{'United Kingdom'} & \mlcell{03/16/2021} & \mlcell{150875} \\ \hline
+\mlcell{90} & \mlcell{'United Kingdom'} & \mlcell{03/15/2021} & \mlcell{150763} \\ \hline
+\mlcell{91} & \mlcell{'United Kingdom'} & \mlcell{03/14/2021} & \mlcell{150629} \\ \hline
+\mlcell{92} & \mlcell{'United Kingdom'} & \mlcell{03/13/2021} & \mlcell{150497} \\ \hline
+\mlcell{93} & \mlcell{'United Kingdom'} & \mlcell{03/12/2021} & \mlcell{150363} \\ \hline
+\mlcell{94} & \mlcell{'United Kingdom'} & \mlcell{03/11/2021} & \mlcell{150229} \\ \hline
+\mlcell{95} & \mlcell{'United Kingdom'} & \mlcell{03/10/2021} & \mlcell{150061} \\ \hline
+\mlcell{96} & \mlcell{'United Kingdom'} & \mlcell{03/09/2021} & \mlcell{149902} \\ \hline
+\mlcell{97} & \mlcell{'United Kingdom'} & \mlcell{03/08/2021} & \mlcell{149717} \\ \hline
+\mlcell{98} & \mlcell{'United Kingdom'} & \mlcell{03/07/2021} & \mlcell{149524} \\ \hline
+\mlcell{99} & \mlcell{'United Kingdom'} & \mlcell{03/06/2021} & \mlcell{149330} \\ \hline
+\mlcell{100} & \mlcell{'United Kingdom'} & \mlcell{03/05/2021} & \mlcell{149123} \\ 
 \hline
 \end{tabular}
 }
@@ -300,22 +389,25 @@ semilogy(days,deaths,"r o")
 hold on
 semilogy(t,D,"k")
 xline(346,"--");
+title("prediction model vs real data",' ')
+ylabel("number of people")
+xlabel("days elapsed")
 legend("predicted","real","346 days of provided data","Location","best")
 hold off
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_1.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_1.eps}
 \end{center}
 
 \begin{par}
 \begin{flushleft}
-Como podía esperarse, al tomar una muestra tan grande de datos como lo son 346 dias y simplemente promedias las tasas de cambio incurrimos en un error bastante grande.
+Como podía esperarse, al tomar una muestra tan grande de datos como lo son 346 días y simplemente promediar las tasas de cambio incurrimos en un error bastante grande.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Este \textbf{no} modelo cumple todos los requisitos formulados previamente ya que:
+Este modelo \textbf{no} cumple todos los requisitos formulados previamente ya que:
 \end{flushleft}
 \end{par}
 
@@ -325,7 +417,7 @@ Este \textbf{no} modelo cumple todos los requisitos formulados previamente ya qu
 \end{itemize}
 
 
-\label{H_FB4C3C2C}
+\label{H_6E6EACF8}
 \matlabheadingtwo{CASO ITALIA SIRD SIMPLE}
 
 \begin{par}
@@ -361,10 +453,10 @@ R0=160686
 R0 = 160686
 \end{matlaboutput}
 \begin{matlabcode}
-fprintf('Value of parameter R0 is %.2f',N*beta/gamma)
+fprintf('La tasa de reproducción R es de %.2f',N*beta/gamma)
 \end{matlabcode}
 \begin{matlaboutput}
-Value of parameter R0 is 1.45
+La tasa de reproducción R es de 1.45
 \end{matlaboutput}
 \begin{matlabcode}
 
@@ -374,7 +466,7 @@ legend('S','I','R','D','Location','best');
 title("180 days italy prediction")
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_2.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_2.eps}
 \end{center}
 \begin{matlabcode}
 [v,i]=max(D);
@@ -399,33 +491,39 @@ xlabel('Days since august 1st 2020');
 ylabel("Death toll")
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_3.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_3.eps}
 \end{center}
 
 \begin{par}
 \begin{flushleft}
-Podemos ver cómo el modelo emula mejor el comportamiento de las muertes acomuladas reales, sin embargo, las autoridades en italia tomaron \href{https://www.garda.com/crisis24/news-alerts/367781/italy-authorities-extend-covid-19-restrictions-until-september-7-update-38}{medidas preventivas para reducir los contagios y las muertes}. 
+Podemos ver cómo el modelo simula mejor el comportamiento de las muertes acumuladas reales, sin embargo, las autoridades en Italia tomaron \href{https://www.garda.com/crisis24/news-alerts/367781/italy-authorities-extend-covid-19-restrictions-until-september-7-update-38}{medidas preventivas para reducir los contagios y las muertes}. 
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Este modelo cumple todos los requisitos formulados previamente ya que:
+Este modelo \textbf{sí }cumple todos los requisitos formulados previamente ya que:
 \end{flushleft}
 \end{par}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
-   \item{\begin{flushleft} es un modelo matematico de ODEs \end{flushleft}}
+   \item{\begin{flushleft} es un modelo matemático de ODEs \end{flushleft}}
    \item{\begin{flushleft} su comportamiento es parecido a los datos reales \end{flushleft}}
-   \item{\begin{flushleft} los datos usados para calcular los coeficientes solo son de 90 días \end{flushleft}}
+   \item{\begin{flushleft} los datos usados para calcular los coeficientes sólo son de 90 días \end{flushleft}}
 \end{itemize}
 
 
 \vspace{1em}
 
-\label{H_80404E36}
+\label{H_A4AED358}
 \matlabheadingtwo{CASO ITALIA SIRD AVANZADO [2]}
+
+\begin{par}
+\begin{flushleft}
+Implementaremos el modelo del siguiente diagrama [2]
+\end{flushleft}
+\end{par}
 
 \begin{par}
 \begin{flushleft}
@@ -439,6 +537,26 @@ Este modelo cumple todos los requisitos formulados previamente ya que:
 \end{flushleft}
 \end{par}
 
+\begin{par}
+\begin{flushleft}
+Este modelo debería tomar una forma más realista ya que toma en cuenta más variables, como puede apreciarse  en la figura 3, tenemos los siguientes compartimentos.
+\end{flushleft}
+\end{par}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item{\begin{flushleft} Susceptibles \end{flushleft}}
+   \item{\begin{flushleft} Expuestos \end{flushleft}}
+   \item{\begin{flushleft} Asintomáticos \end{flushleft}}
+   \item{\begin{flushleft} Infectados \end{flushleft}}
+   \item{\begin{flushleft} confinado (guarda distancia en casa) \end{flushleft}}
+   \item{\begin{flushleft} En cuarentena (infectado pero ya no infecta más gente) \end{flushleft}}
+   \item{\begin{flushleft} Recuperados \end{flushleft}}
+   \item{\begin{flushleft} Muertes \end{flushleft}}
+\end{itemize}
+
+
+\vspace{1em}
 \begin{matlabcode}
 %italy
 N = 6.046*10^7;
@@ -460,14 +578,28 @@ T = 180;
 dt = 1/4; 
 y0= [N; 1; 0; 1; 1; 0; 1; 0];
 [t,S, A, C, E, I, R, Q, D] = modelSIRDAvanzado(alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,lambda0,lambda1,k0,k1,N,y0,x0,dt,T);
-plot(t,[S I R D])
-legend('S','I','R','D')
+plot(t,S,'-',t, A,'--',t, C,':',t, E,'-.',t, I,'-',t, R,'--',t, Q,':',t, D,'-')
+%ylim([0 3*10^7])
+ylabel("Población")
+xlabel("dias")
+title("Italia SIRD-avanzado desde el inicio de la epidemia")
+legend('S', 'A', 'C', 'E', 'I', 'R', 'Q', 'D')
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_4.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_4.eps}
 \end{center}
 \begin{matlabcode}
-
+plot(t,S,'-',t, A,'--',t, C,':',t, E,'-.',t, I,'-',t, R,'--',t, Q,':',t, D,'y-')
+ylim([0 1.5*10^7])
+ylabel("Población")
+xlabel("dias")
+title("Italia SIRD-avanzado desde el inicio de la epidemia (zoom)",' ')
+legend('S', 'A', 'C', 'E', 'I', 'R', 'Q', 'D')
+\end{matlabcode}
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_5.eps}
+\end{center}
+\begin{matlabcode}
 %data = csvread('ITA-CUM-death-day0-180.csv');
 T = readtable('ITA-CUM-death-day0-180.csv');
 column1 = T{:,1};
@@ -485,12 +617,12 @@ xlabel('Days');
 ylabel("Death toll");
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_5.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_6.eps}
 \end{center}
 
 \begin{par}
 \begin{flushleft}
-Aunque los números de la predicción son mayores, el comportamiento es parecido, ambas gráficas se empiezan a aplanar a los 40-60 días.
+Aunque los números de la predicción son mayores, el comportamiento es parecido, pues ambas gráficas se empiezan a aplanar a los 40-60 días.
 \end{flushleft}
 \end{par}
 
@@ -501,12 +633,12 @@ Este modelo con estos datos en particular \textbf{no }cumple con los requisitos 
 \end{par}
 
 
-\label{H_D6BE3D2B}
+\label{H_138E73D0}
 \matlabheadingtwo{Entendiendo la importancia de los coeficientes}
 
 \begin{par}
 \begin{flushleft}
-Revisitemos el caso del Reino Unido con el modelo SIRD simple para observar incrementos en las variables de taza de infección (beta) y taza de recuperación (gamma).
+Revisemos el caso del Reino Unido  otra vez con el modelo SIRD simple para observar incrementos en las variables de tasa de infección (beta) y tasa de recuperación (gamma).
 \end{flushleft}
 \end{par}
 
@@ -523,18 +655,18 @@ dt = 1/4; % time interval of 6 hours (1/4 of a day)
 [t,S,I,R,D] = modelSIRD(beta,gamma,delta,mu,N,I0,T,dt);
 \end{matlabcode}
 
-\label{H_409BC650}
+\label{H_28273C0D}
 \matlabheadingthree{BETA}
 
 \begin{par}
 \begin{flushleft}
-Los datos tomados para este estudio son los promedios de esas variables desde que empezó el 1 de febrero de 2020 hasta el pico de casos el 9 de enero de 2021. Para estas ultimas fechas el proceso de vacunación (que empezó en diciembre 13 de 2020) juega un papel importante en reducir el número de decesos y contagios.
+Los datos tomados para este estudio son los promedios de esas variables desde que empezó el 1 de febrero de 2020 hasta el pico de casos el 9 de enero de 2021. Para estas últimas fechas el proceso de vacunación (que empezó en diciembre 13 de 2020) juega un papel importante en reducir el número de decesos y contagios.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Veamos ahora que pasa si se relajan las medidas preventivas, es decir un aumento en el coeficiente de infección \textbf{beta}
+Veamos ahora qué pasa si se relajan las medidas preventivas, es decir, un aumento en el coeficiente de infección \textbf{beta}
 \end{flushleft}
 \end{par}
 
@@ -548,7 +680,7 @@ betaBase = 9.6905e-09
 \begin{matlabcode}
 for i = 1.1:0.1:1.5
     figure;
-    beta = betaBase * i
+    beta = betaBase * i;
     
     [t,S,I,R,D] = modelSIRD(beta,gamma,delta,mu,N,I0,T,dt);
     semilogy(t,[S,I,R,D])    
@@ -561,60 +693,59 @@ for i = 1.1:0.1:1.5
     hold off
     [v,i]=max(D);
     d=i/4;
-    fprintf('Value of parameter R (Reproduction rate) is %.2f',N*beta/gamma)
+    fprintf('el valor de beta es %d',beta)
+    fprintf('La tasa de reproducción R es de %.2f',N*beta/gamma)
     fprintf('El total de muertes son %d al día %d desde que empezó la pandemia \n',round(v),round(d))
 end
 \end{matlabcode}
-\begin{matlaboutput}
-beta = 1.0660e-08
-\end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_6.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_7.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.33
+el valor de beta es 1.065955e-08
+La tasa de reproducción R es de 1.33
 El total de muertes son 5716279 al día 500 desde que empezó la pandemia 
-beta = 1.1629e-08
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_7.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_8.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.46
+el valor de beta es 1.162860e-08
+La tasa de reproducción R es de 1.46
 El total de muertes son 9269041 al día 500 desde que empezó la pandemia 
-beta = 1.2598e-08
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_8.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_9.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.58
+el valor de beta es 1.259765e-08
+La tasa de reproducción R es de 1.58
 El total de muertes son 12173548 al día 500 desde que empezó la pandemia 
-beta = 1.3567e-08
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_9.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_10.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.70
+el valor de beta es 1.356670e-08
+La tasa de reproducción R es de 1.70
 El total de muertes son 14777172 al día 500 desde que empezó la pandemia 
-beta = 1.4536e-08
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_10.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_11.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.82
+el valor de beta es 1.453575e-08
+La tasa de reproducción R es de 1.82
 El total de muertes son 16935175 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 
 \begin{par}
 \begin{flushleft}
-Podemos ver cómo un incremento de apenas el 10\% resulta en un gran incremento de decesos. En un escenario real, incrementaría a la vez la tasa de mortalidad y decrementaría por lo tanto la tasa de recuperación. Esto debido al sobrecupo de los hospitales.
+Podemos ver cómo un incremento de apenas el 10\% resulta en un gran incremento de decesos. En un escenario real, incrementa a la vez la tasa de mortalidad y decrementar por lo tanto la tasa de recuperación. Esto debido al sobrecupo de los hospitales.
 \end{flushleft}
 \end{par}
 
-\label{H_B5072C61}
+\label{H_256FF87E}
 \matlabheadingthree{GAMMA}
 
 \begin{par}
@@ -638,48 +769,54 @@ for gamma = gammaBase:-0.11:gammaBase-0.11*4
     hold off
     [v,i]=max(D);
     d=i/4;
-    fprintf('Value of parameter R (Reproduction rate) is %.2f',N*beta/gamma)
+    fprintf('el valor de gamma es %d',gamma)
+    fprintf('La tasa de reproducción R es de %.2f',N*beta/gamma)
     fprintf('El total de muertes son %d al día %d desde que empezó la pandemia \n',round(v),round(d))
 end
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_11.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_12.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.21
+el valor de gamma es 5.322720e-01
+La tasa de reproducción R es de 1.21
 El total de muertes son 1412387 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_12.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_13.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 1.53
+el valor de gamma es 4.222720e-01
+La tasa de reproducción R es de 1.53
 El total de muertes son 10638058 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_13.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_14.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 2.07
+el valor de gamma es 3.122720e-01
+La tasa de reproducción R es de 2.07
 El total de muertes son 21657465 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_14.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_15.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 3.19
+el valor de gamma es 2.022720e-01
+La tasa de reproducción R es de 3.19
 El total de muertes son 34454982 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 \begin{center}
-\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_15.png}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_16.eps}
 \end{center}
 \begin{matlaboutput}
-Value of parameter R (Reproduction rate) is 7.00
+el valor de gamma es 9.227196e-02
+La tasa de reproducción R es de 7.00
 El total de muertes son 48173566 al día 500 desde que empezó la pandemia 
 \end{matlaboutput}
 
 
-\label{H_E38515E4}
+\label{H_CDD99D92}
 \matlabheading{Conclusión}
 
 \begin{par}
@@ -690,30 +827,30 @@ Entender este comportamiento de la pandemia causada por la enfermedad coronaviru
 
 \begin{par}
 \begin{flushleft}
-Como vimos en el caso de Inglaterra, al usar un promedio de un año para los datos, el modelo distancia mucho de la realidad. A pesar de necesitar menos datos que los modelos estadísticos, los modelos de ecuaciones diferenciales ordinarias (como es el SIRD) dependen grandemente de los coeficientes.
+Como vimos en el caso de Inglaterra, al usar un promedio de un año para los datos, el modelo se distancia mucho de la realidad. A pesar de necesitar menos datos que los modelos estadísticos, los modelos de ecuaciones diferenciales ordinarias (como es el SIRD) dependen grandemente de los coeficientes.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-En el primer caso de Italia con SIRD simple obtuvimos buenos resultados. Esto se debe a que los coeficientes tienen sentido para este marco de tiempo. Podriamos probablemente recortar los datos a tan solo 14 dias y obtener una buena simulación de los siguientes 30 días si la situación no cambia. Es aquí donde vemos cómo estos modelos nos muestran un escenario realista o muy aproximado a la realidad. De esta forma, podemos reaccionar proactivamente antes de una catastrofe.
+En el primer caso de Italia con SIRD simple obtuvimos buenos resultados. Esto se debe a que los coeficientes tienen sentido para este marco de tiempo. Podríamos probablemente recortar los datos a tan solo 14 días y obtener una buena simulación de los siguientes 30 días si la situación no cambia. Es aquí donde vemos cómo estos modelos nos muestran un escenario realista o muy aproximado a la realidad. De esta forma, podemos reaccionar proactivamente antes de una catástrofe.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-El último modelo está hecho para verse de una forma retrospectiva, difícilmente podremos calcular todos los coeficientes de forma previa. Pero podemos calcular diferentes escenarios jugando con estos coeficientes y ver la severidad de estos casos hipoteticos.
+El último modelo está hecho para verse de una forma retrospectiva, difícilmente podremos calcular todos los coeficientes de forma previa. Pero podemos calcular diferentes escenarios jugando con estos coeficientes y ver la severidad de estos casos hipotéticos.
 \end{flushleft}
 \end{par}
 
 \begin{par}
 \begin{flushleft}
-Finalmente, observamos como solo el SIRD simple de Italia cumple con todos los requisitos. Al contrario del SIRD avanzado. Esto nos muestra como los sistemas más complejos son muy delicados en cuanto a la exactitud de los párametros (coeficientes) que se usan en el modelo. El modelo y su efectividad dependen más fuertemente de estos coeficientes que de su complejidad misma. 
+Finalmente, observamos cómo solamente el SIRD simple de Italia cumple con todos los requisitos. Al contrario del SIRD avanzado. Esto también nos muestra cómo los sistemas más complejos son muy delicados en cuanto a la exactitud de los parámetros (coeficientes) que se usan en el modelo. El modelo y su efectividad dependen más fuertemente de estos coeficientes que de su complejidad misma. 
 \end{flushleft}
 \end{par}
 
 
-\label{H_6EED7AAE}
+\label{H_C5AFABC0}
 \matlabheading{Referencias}
 
 \begin{par}
@@ -729,8 +866,8 @@ Finalmente, observamos como solo el SIRD simple de Italia cumple con todos los r
 \end{par}
 
 
-\label{H_25C2B3D9}
-\matlabheading{Funciones}
+\label{H_95915F88}
+\matlabheading{Implementación}
 
 \begin{matlabcode}
 function [t,S,I,R] = modelSIR(beta,gamma,delta,N,I0,T,dt)
@@ -756,9 +893,11 @@ function [t,S,I,R,D] = modelSIRD2(beta,gamma,delta,mu,N,I0,T,dt,R0,D0)
     D=y(:,4);
 end
 
-function [t,S, A, C, E, I, R, Q, D] = modelSIRDAvanzado(alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,lambda0,lambda1,k0,k1,N,y0,x0,dt,T)
+function [t,S, A, C, E, I, R, Q, D] = modelSIRDAvanzado(alpha,beta,mu,nao,sigma,tao, ...
+    epsilon,gamma,delta,lambda0,lambda1,k0,k1,N,y0,x0,dt,T)
     
-    [t,y] = ode45(@(t,y) SIRDAfunct(t,y,alpha,beta,mu,nao,sigma,tao,epsilon,gamma,delta,lambda0,lambda1,k0,k1,T,N),x0:dt:T,y0);
+    [t,y] = ode45(@(t,y) SIRDAfunct(t,y,alpha,beta,mu,nao,sigma,tao,epsilon ...
+        ,gamma,delta,lambda0,lambda1,k0,k1,T,N),x0:dt:T,y0);
     
     S=y(:,1);
     A=y(:,2);
